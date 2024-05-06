@@ -99,7 +99,6 @@ checkmk_var_rules:
       properties: {
         "comment": "{{ ansible_date_time.iso8601 }} - Ansible managed",
         "disabled": false,
-        "documentation_url": ""
       }
       value_raw: 'True'
 
