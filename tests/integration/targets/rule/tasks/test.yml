@@ -65,7 +65,7 @@
       conditions: "{{ item.content.extensions.conditions }}"
       properties: 
           comment: "{{ item.content.extensions.properties.comment | default('') }}"
-          description: "New description"
+          # description: "New description"
       value_raw: "{{ item.content.extensions.value_raw }}"
     state: "present"
   delegate_to: localhost
@@ -86,7 +86,7 @@
       conditions: "{{ item.content.extensions.conditions }}"
       properties: 
           comment: "{{ item.content.extensions.properties.comment | default('') }}"
-          description: "New description"
+          # description: "New description"
       value_raw: "{{ item.content.extensions.value_raw }}"
     state: "present"
   delegate_to: localhost
