@@ -524,7 +524,7 @@ class RuleAPI(CheckmkAPI):
             if self.state == "present":
                 self._changed_items = self._detect_changes()
 
-    def a():
+    def a(self):
         self.a
 
     def _verify_parameters(self):
