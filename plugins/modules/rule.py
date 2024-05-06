@@ -630,9 +630,9 @@ class RuleAPI(CheckmkAPI):
         ):
             desired_properties.pop("description")
 
-        a = 0
-
         for r in self._get_rules_in_ruleset(desired.get("ruleset")):
+            a = 0
+
             if r["extensions"]["folder"] == desired["rule"]["location"]["folder"]:
                 a += 1
 
