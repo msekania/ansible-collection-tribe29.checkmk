@@ -652,7 +652,7 @@ class RuleAPI(CheckmkAPI):
             if r["extensions"]["properties"] == desired_properties:
                 a += 4
             elif a == 11:
-                self.module.fail_json(msg=str(r["extensions"]["properties"]))
+                self.module.fail_json(msg=str(r["extensions"]["properties"]) + str(desired_properties))
 
             if (
                 r["extensions"]["folder"] == desired["rule"]["location"]["folder"]
