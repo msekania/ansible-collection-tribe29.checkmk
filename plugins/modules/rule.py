@@ -514,6 +514,8 @@ class RuleAPI(CheckmkAPI):
 
         self._verify_parameters()
 
+        self.a = 0
+
         if not self.rule_id:
             # If no rule_id is provided, we still check if rule exists.
             self.rule_id = self._get_rule_id(self.desired)
@@ -524,7 +526,7 @@ class RuleAPI(CheckmkAPI):
             if self.state == "present":
                 self._changed_items = self._detect_changes()
 
-    def a(self):
+    def get_a(self):
         return self.a
 
     def _verify_parameters(self):
@@ -652,6 +654,7 @@ class RuleAPI(CheckmkAPI):
                 self.a = a
                 return r["id"]
 
+        self.a = a
         return None
 
     def _detect_changes(self):
@@ -963,7 +966,7 @@ def run_module():
 
     if result.content:
         result = result._replace(content=json.loads(result.content))
-    result = result._replace(msg="Rule already absent. a= %s" % current_rule.a())
+    result = result._replace(msg=msg + " a= %s" % current_rule.get_a())
     result_as_dict = result._asdict()
     module.exit_json(**result_as_dict)
 
