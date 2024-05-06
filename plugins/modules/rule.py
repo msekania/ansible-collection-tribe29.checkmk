@@ -525,7 +525,7 @@ class RuleAPI(CheckmkAPI):
                 self._changed_items = self._detect_changes()
 
     def a(self):
-        self.a
+        return self.a
 
     def _verify_parameters(self):
         self._verify_location()
