@@ -74,6 +74,25 @@
   loop_control:
       label: "{{ item.content.id }}"
 
+- name: Extract all rules from employed rulesets
+  ansible.builtin.uri:
+    url: '{{ checkmk_var_server_url }}/{{ outer_item.site }}/check_mk/api/1.0/domain-types/rule/collections/all?ruleset_name={{ item.ruleset }}'
+    method: get
+    status_code: [200]
+    headers:
+      Authorization: "Bearer {{ checkmk_var_automation_user }} {{ checkmk_var_automation_secret }}"
+      Accept: "application/json"
+      Content-Type: "application/json"
+  changed_when: false
+  delegate_to: localhost
+  run_once: true  # noqa run-once[task]
+  register: output
+  loop: "{{ checkmk_var_rules }}"
+
+- name: Print extracted info
+  ansible.builtin.debug:
+    var: output.results
+
 - name: "{{ outer_item.version }} - {{ outer_item.edition | upper }} - Modify rules. Again."
   rule:
     server_url: "{{ checkmk_var_server_url }}"
