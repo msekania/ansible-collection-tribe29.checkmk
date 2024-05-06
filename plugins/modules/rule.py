@@ -644,13 +644,15 @@ class RuleAPI(CheckmkAPI):
             if r["extensions"]["conditions"] == desired["rule"]["conditions"]:
                 a += 2
 
-            if r["extensions"]["properties"] == desired_properties:
-                a += 4
-
             if self._raw_value_eval("search", r["extensions"]) == self._raw_value_eval(
                 "desired", desired["rule"]
             ):
                 a += 8
+
+            if r["extensions"]["properties"] == desired_properties:
+                a += 4
+            elif a == 11:
+                self.module.fail_json(msg=str(r["extensions"]["properties"]))
 
             if (
                 r["extensions"]["folder"] == desired["rule"]["location"]["folder"]
