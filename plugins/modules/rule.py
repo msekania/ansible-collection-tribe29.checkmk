@@ -966,7 +966,7 @@ def run_module():
 
     if result.content:
         result = result._replace(content=json.loads(result.content))
-    result = result._replace(msg=msg + " a= %s" % current_rule.get_a())
+    result = result._replace(msg=result.msg + " a= %s" % current_rule.get_a())
     result_as_dict = result._asdict()
     module.exit_json(**result_as_dict)
 
