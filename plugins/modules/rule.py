@@ -618,6 +618,13 @@ class RuleAPI(CheckmkAPI):
         return []
 
     def _get_rule_id(self, desired):
+        desired_properties = desired["rule"]["properties"]
+        if (
+            desired["rule"]["properties"].get("description")
+            and desired["rule"]["properties"].get("description") == ""
+        ):
+            desired["rule"]["properties"].pop("description")
+
         for r in self._get_rules_in_ruleset(desired.get("ruleset")):
             if (
                 r["extensions"]["folder"] == desired["rule"]["location"]["folder"]
