@@ -646,8 +646,8 @@ class RuleAPI(CheckmkAPI):
                 and self._raw_value_eval("search", r["extensions"])
                 == self._raw_value_eval("desired", desired["rule"])
             ):
-                return r["id"]
                 self.a = a
+                return r["id"]
 
         return None
 
