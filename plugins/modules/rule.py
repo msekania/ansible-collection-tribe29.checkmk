@@ -963,8 +963,8 @@ def run_module():
 
     if result.content:
         result = result._replace(content=json.loads(result.content))
+    result = result._replace(msg="Rule already absent. a= %s" % current_rule.a())
     result_as_dict = result._asdict()
-    result_as_dict["a"] = current_rule.a()
     module.exit_json(**result_as_dict)
 
 
