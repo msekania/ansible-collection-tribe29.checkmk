@@ -652,8 +652,8 @@ class RuleAPI(CheckmkAPI):
 
             if r["extensions"]["properties"] == desired_properties:
                 a += 4
-            elif a == 11:
-                self.module.fail_json(msg=str(r["extensions"]["properties"]) + str(desired_properties))
+            # elif a == 11:
+            #     self.module.fail_json(msg=str(r["extensions"]["properties"]) + str(desired_properties))
 
             if (not self._raw_value_eval("search", r["extensions"]) == self._raw_value_eval("desired", desired["rule"])) and a == 7:
                 self.module.fail_json(msg=str(self._raw_value_eval("search", r["extensions"])) + str(self._raw_value_eval("desired", desired["rule"])))
