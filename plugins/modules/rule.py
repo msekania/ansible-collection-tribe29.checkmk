@@ -628,7 +628,7 @@ class RuleAPI(CheckmkAPI):
             desired_properties.get("description")
             and desired_properties.get("description") == ""
         ):
-            desired["rule"]["properties"].pop("description")
+            desired_properties.pop("description")
 
         a = 0
 
