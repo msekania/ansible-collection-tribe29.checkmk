@@ -625,7 +625,22 @@ class RuleAPI(CheckmkAPI):
         ):
             desired["rule"]["properties"].pop("description")
 
+        a = 0
+
         for r in self._get_rules_in_ruleset(desired.get("ruleset")):
+            if r["extensions"]["folder"] == desired["rule"]["location"]["folder"]:
+                a += 1
+
+            if r["extensions"]["conditions"] == desired["rule"]["conditions"]:
+                a += 2
+
+            if (
+                self._raw_value_eval("search", r["extensions"])
+                == self._raw_value_eval("desired", desired["rule"])
+            ):
+                a += 4
+
+
             if (
                 r["extensions"]["folder"] == desired["rule"]["location"]["folder"]
                 and r["extensions"]["conditions"] == desired["rule"]["conditions"]
@@ -634,6 +649,7 @@ class RuleAPI(CheckmkAPI):
                 == self._raw_value_eval("desired", desired["rule"])
             ):
                 return r["id"]
+                self.a = a
 
         return None
 
@@ -947,6 +963,7 @@ def run_module():
     if result.content:
         result = result._replace(content=json.loads(result.content))
     result_as_dict = result._asdict()
+    result_as_dict["a"] = current_rule(self.a)
     module.exit_json(**result_as_dict)
 
 
