@@ -529,6 +529,9 @@ class RuleAPI(CheckmkAPI):
     def get_a(self):
         return self.a
 
+    def get_rulid(self):
+        return self.rule_id
+
     def _verify_parameters(self):
         self._verify_location()
         self._verify_conditions()
@@ -654,7 +657,7 @@ class RuleAPI(CheckmkAPI):
                 self.a = a
                 return r["id"]
 
-        self.a = a
+        self.a = 0
         return None
 
     def _detect_changes(self):
@@ -966,7 +969,7 @@ def run_module():
 
     if result.content:
         result = result._replace(content=json.loads(result.content))
-    result = result._replace(msg=result.msg + " a= %s" % current_rule.get_a())
+    result = result._replace(msg=result.msg + " a= %s, rule_id = %s" % (current_rule.get_a(), current_rule.get_rulid()))
     result_as_dict = result._asdict()
     module.exit_json(**result_as_dict)
 
