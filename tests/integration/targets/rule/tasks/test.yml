@@ -13,24 +13,44 @@
   loop: "{{ checkmk_var_rules }}"
   register: created_rules
 
-- name: Extract all rulesets
+# - name: Extract all rulesets
+#   ansible.builtin.uri:
+#     url: '{{ checkmk_var_server_url }}/{{ outer_item.site }}/check_mk/api/1.0/domain-types/ruleset/collections/all'
+#     method: get
+#     status_code: [200]
+#     headers:
+#       Authorization: "Bearer {{ checkmk_var_automation_user }} {{ checkmk_var_automation_secret }}"
+#       used: "True"
+#       Accept: "application/json"
+#       Content-Type: "application/json"
+#   changed_when: false
+#   delegate_to: localhost
+#   run_once: true  # noqa run-once[task]
+#   register: __result_rulesets
+
+# - name: Print __result_rulesets 1
+#   ansible.builtin.debug:
+#     var: __result_rulesets.json
+
+- name: Extract all rules from employed rulesets
   ansible.builtin.uri:
-    url: '{{ checkmk_var_server_url }}/{{ outer_item.site }}/check_mk/api/1.0/domain-types/ruleset/collections/all'
+    url: '{{ checkmk_var_server_url }}/{{ outer_item.site }}/check_mk/api/1.0/domain-types/rule/collections/all?ruleset_name={{ item.ruleset }}'
     method: get
     status_code: [200]
     headers:
       Authorization: "Bearer {{ checkmk_var_automation_user }} {{ checkmk_var_automation_secret }}"
-      used: "True"
       Accept: "application/json"
       Content-Type: "application/json"
   changed_when: false
   delegate_to: localhost
   run_once: true  # noqa run-once[task]
-  register: __result_rulesets
+  register: output
+  loop: "{{ checkmk_var_rules }}"
+  when: employed_rule_sets is defined and not item in reject_rulesets and not ansible_check_mode
 
-- name: Print __result_rulesets 1
+- name: Print extracted info
   ansible.builtin.debug:
-    var: __result_rulesets.json
+    var: output.results
 
 - name: "{{ outer_item.version }} - {{ outer_item.edition | upper }} - Create rules. Again"
   rule:
