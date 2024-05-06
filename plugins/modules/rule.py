@@ -72,10 +72,10 @@ options:
                         type: str
             conditions:
                 description: Conditions of the rule.
-                type: dict
+                type: raw
             properties:
                 description: Properties of the rule.
-                type: dict
+                type: raw
             value_raw:
                 description:
                     - Rule values as exported from the web interface.
@@ -906,8 +906,8 @@ def run_module():
             required=True,
             options=dict(
                 rule_id=dict(type="str", default=None),
-                conditions=dict(type="dict"),
-                properties=dict(type="dict"),
+                conditions=dict(type="raw"),
+                properties=dict(type="raw"),
                 value_raw=dict(type="str"),
                 location=dict(
                     type="dict",
