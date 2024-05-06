@@ -81,7 +81,8 @@ checkmk_var_rules:
         "description": "",
         "disabled": false
       }
-      value_raw: "{'facility': 17, 'method': '', 'monitor_logfilelist': False}"
+      value_raw: "{'method': '', 'facility': 17, 'monitor_logfilelist': False}"
+      # value_raw: "{'facility': 17, 'method': '', 'monitor_logfilelist': False}"
 
   - ruleset: "usewalk_hosts"
     rule:
