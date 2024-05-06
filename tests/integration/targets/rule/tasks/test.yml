@@ -46,7 +46,6 @@
   run_once: true  # noqa run-once[task]
   register: output
   loop: "{{ checkmk_var_rules }}"
-  when: employed_rule_sets is defined and not item in reject_rulesets and not ansible_check_mode
 
 - name: Print extracted info
   ansible.builtin.debug:
