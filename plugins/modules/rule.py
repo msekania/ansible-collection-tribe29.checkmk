@@ -620,8 +620,8 @@ class RuleAPI(CheckmkAPI):
     def _get_rule_id(self, desired):
         desired_properties = desired["rule"]["properties"]
         if (
-            desired["rule"]["properties"].get("description")
-            and desired["rule"]["properties"].get("description") == ""
+            desired_properties.get("description")
+            and desired_properties.get("description") == ""
         ):
             desired["rule"]["properties"].pop("description")
 
@@ -629,7 +629,7 @@ class RuleAPI(CheckmkAPI):
             if (
                 r["extensions"]["folder"] == desired["rule"]["location"]["folder"]
                 and r["extensions"]["conditions"] == desired["rule"]["conditions"]
-                and r["extensions"]["properties"] == desired["rule"]["properties"]
+                and r["extensions"]["properties"] == desired_properties
                 and self._raw_value_eval("search", r["extensions"])
                 == self._raw_value_eval("desired", desired["rule"])
             ):
