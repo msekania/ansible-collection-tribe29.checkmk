@@ -524,6 +524,9 @@ class RuleAPI(CheckmkAPI):
             if self.state == "present":
                 self._changed_items = self._detect_changes()
 
+    def a():
+        self.a
+
     def _verify_parameters(self):
         self._verify_location()
         self._verify_conditions()
@@ -961,7 +964,7 @@ def run_module():
     if result.content:
         result = result._replace(content=json.loads(result.content))
     result_as_dict = result._asdict()
-    result_as_dict["a"] = current_rule.a
+    result_as_dict["a"] = current_rule.a()
     module.exit_json(**result_as_dict)
 
 
