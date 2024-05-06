@@ -634,12 +634,10 @@ class RuleAPI(CheckmkAPI):
             if r["extensions"]["conditions"] == desired["rule"]["conditions"]:
                 a += 2
 
-            if (
-                self._raw_value_eval("search", r["extensions"])
-                == self._raw_value_eval("desired", desired["rule"])
+            if self._raw_value_eval("search", r["extensions"]) == self._raw_value_eval(
+                "desired", desired["rule"])
             ):
                 a += 4
-
 
             if (
                 r["extensions"]["folder"] == desired["rule"]["location"]["folder"]
@@ -963,7 +961,7 @@ def run_module():
     if result.content:
         result = result._replace(content=json.loads(result.content))
     result_as_dict = result._asdict()
-    result_as_dict["a"] = current_rule(self.a)
+    result_as_dict["a"] = current_rule.a
     module.exit_json(**result_as_dict)
 
 
