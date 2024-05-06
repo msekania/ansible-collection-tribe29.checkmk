@@ -683,6 +683,19 @@ class RuleAPI(CheckmkAPI):
             changes.append("conditions")
 
         if current.get("properties", {}) != desired.get("properties", {}):
+            if (
+                current.get("properties", {}).get("description", "") == desired.get("properties", {}).get("description", "")
+                and desired.get("properties", {}).get("description", "") == ""
+            ):
+                desired["properties"].pop("description", None)
+
+            if (
+                current.get("properties", {}).get("comment", "") == desired.get("properties", {}).get("comment", "")
+                and desired.get("properties", {}).get("comment", "") == ""
+            ):
+                desired["properties"].pop("comment", None)
+
+        if current.get("properties", {}) != desired.get("properties", {}):
             changes.append("properties")
 
         if self._raw_value_eval("current", current) != self._raw_value_eval(
