@@ -691,7 +691,7 @@ class RuleAPI(CheckmkAPI):
                         == desired.get("properties").get(elem, "")
                         and desired.get("properties").get(elem, "") == ""
                     ):
-                    desired["properties"].pop(elem, None)
+                        desired["properties"].pop(elem, None)
 
         if current.get("properties", {}) != desired.get("properties", {}):
             changes.append("properties")
